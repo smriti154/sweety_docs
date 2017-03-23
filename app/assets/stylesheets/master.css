@@ -1,0 +1,41 @@
+.field input
+{
+
+width: 96%;
+
+}
+
+.alert
+{
+
+	padding: 3px;
+	margin-left: -37px;
+}
+
+#notice
+{
+
+margin-left: 98px;
+float: left;
+margin-top: 22px;
+width: 50%;
+
+}
+
+#report-types
+{
+border-right: none !important;
+width: 56%;
+}
+
+h5
+{
+  margin-left: 90px;
+
+}
+
+#report-table
+{
+
+	width: 57%;
+}

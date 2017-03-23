@@ -1,0 +1,28 @@
+</br>
+</br>
+<%= form_for :reading, :remote => true, :format => :js, url: add_entry_path do |f| %>
+
+<p>
+<%= f.text_field :observation_date, placeholder: "Select Date", style: "width:23%", id:"datepicker" %>
+<%= button_tag(type: 'button', class:"btn btn-default btn-sm", id: 'calendar-button') do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+<% end %>
+</p>
+
+</br></br>
+
+<p>
+  <%= f.text_field :glucose_level, placeholder: "Enter Glucose Reading(in mg/dl)", style: "width:23%", id: "glucose_level" %>
+  <%= button_tag(type: 'submit', class:"btn btn-info btn-sm", id: 'add-entry') do %>
+    <span class="glyphicon glyphicon-plus"></span>
+  <% end %>
+
+</p>
+<% end %>
+
+<div id="entered-readings" style="width: 60%;"></div></br></br>
+<%= link_to "Show Reports", show_reports_path %>
+
+<%= javascript_include_tag "readings" %>
+
+

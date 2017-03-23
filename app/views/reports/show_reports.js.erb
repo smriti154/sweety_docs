@@ -1,0 +1,2 @@
+$('#result').empty();
+$('#result').html("<%= escape_javascript(render(:partial => 'reports/reports',  locals: { user: @user, date: params[:observation_date].to_date})).html_safe %>");

@@ -1,0 +1,16 @@
+<% if readings.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% readings.errors.full_messages.each do |message| %>
+         <% flash[:danger] = message %>
+         <% flash.delete(:success) %>
+      <% end %>
+      </ul>
+    </div>
+    <% else %>
+    <% flash.delete(:danger) %>
+<% end %>
+
+<% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>

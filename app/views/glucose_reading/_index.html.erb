@@ -1,0 +1,17 @@
+</br></br>
+<h4>Glucose Level Observations for selected date are:</h4>
+</br></br>
+<table class="table table-bordered" width= "200">
+  <tbody>
+  	<% if readings.empty? %>
+         <h5><i>You have not made any entry yet.</i></h5>
+  	<% else %>
+  <thead width="100">
+  </thead>
+  		<% readings.each do |reading| %>
+      <span><td><%= reading.glucose_level %></td></span>
+      <% end %>
+  	<% end %>
+  </tbody>
+</table>
+<br>

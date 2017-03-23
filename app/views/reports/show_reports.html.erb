@@ -1,0 +1,89 @@
+<%= form_for :reading, :remote => true do |f| %>
+<p>
+  <%= f.text_field :observation_date, placeholder: "Select Date", style: "width:23%", id:"reports-datepicker" %>
+  <%= button_tag(type: 'button', class:"btn btn-default btn-sm", id: 'report-calendar-button') do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+  <% end %>
+</p>
+</br></br>
+
+
+<div id="tabs">
+  <ul id="report-types" class="nav nav-tabs" style="border-right:solid">
+    <li id="daily"><a href="daily_average" data-toggle="tab" data-tab-remote="/show_reports">Daily Report</a></li>
+    <li id="date"><a href="month_to_date_average" data-toggle="tab" data-tab-remote="/show_reports">Month To Date Report</a></li>
+    <li id="monthly"><a href="last_month_average" data-toggle="tab" data-tab-remote="/show_reports">Monthly Report</a></li>
+  </ul>
+
+</br></br></br>
+
+  <div class="tab-content" id="result" width= "50%" style="margin-bottom:38px;"></div>
+</div>
+
+<%= link_to "Back To Readings", readings_path %>
+
+</br></br>
+<% end %>
+
+<script>
+$(document).ready(function() {
+
+  $("#reports-datepicker").datepicker({ dateFormat: "dd/mm/yy",
+    onSelect: function() {
+    var selectedDate = $(this).val();
+    var target = $('.active').find('a').attr('href');
+    var getData = { url: "/show_reports", 
+                    data: {
+
+                            type: target,
+                            observation_date: selectedDate
+
+                          },
+                    type: 'GET'
+    };
+
+    ajaxCall(getData);
+
+  }});
+
+$('#daily').addClass('active');
+$('#result').html('<h5><i>Select date to see reports.</i></h5>');
+
+
+$('#report-calendar-button').click(function() {
+  $("#reports-datepicker").focus();
+});
+
+$(document).on("click", "#daily, #date, #monthly", function(e) {
+
+  var target = $(e.target).attr("href") // activated tab
+  var date = $("#reports-datepicker").val();
+  var getData = { url: "/show_reports", 
+                  data: {
+
+                          type: target,
+                          observation_date: date
+
+                        },
+                type: 'GET'
+                };
+
+                ajaxCall(getData);
+
+});
+
+
+function ajaxCall(ajaxData) {
+
+  $.ajax({
+          type: ajaxData.type,
+          url: ajaxData.url,
+          data: ajaxData.data,
+          async: false,
+          dataType: 'script'
+          });
+  }
+
+});
+
+</script>

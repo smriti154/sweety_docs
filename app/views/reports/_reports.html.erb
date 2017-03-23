@@ -1,0 +1,29 @@
+<% if params[:type] == "daily_average" %>
+    <% records = GlucoseReading.daily_report(params[:observation_date].to_date, @user.id) %>
+   <% elsif params[:type] == "month_to_date_average" %>
+         <% records = GlucoseReading.month_to_date_report(params[:observation_date].to_date, @user.id) %>
+     <% else %>
+        <% records = GlucoseReading.last_month_report(params[:observation_date].to_date, @user.id) %>
+   <% end %>
+
+<table class="table table-bordered" id="report-table">
+  <tbody>
+  	<% if params[:observation_date].empty? %>
+         <h5><i>Select date to see reports.</i></h5>
+    <% elsif records.count < 1 %>
+      <h5><i>No observations exist within your selected range.</i></h5>
+  	<% else %>
+     <tr>
+      <th>Average</th>
+      <th>Maximum</th>
+      <th>Minimum</th>
+    </tr>
+     <tr>
+      <td><%= records.average(:glucose_level) %></td>
+      <td><%= records.maximum(:glucose_level) %></td>
+       <td><%= records.minimum(:glucose_level) %></td>
+     </tr>
+  	<% end %>
+  </tbody>
+</table>
+<br>

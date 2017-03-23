@@ -1,0 +1,8 @@
+$("#notice").empty();
+
+<% if !@glucose_reading.blank? %>
+	$('#notice').append("<%= j render(:partial => 'glucose_reading/errors', :locals => {readings: @glucose_reading}) %>");
+	$('#entered-readings').html('<%=j render partial: 'glucose_reading/index', locals: { readings: @readings_of_the_day } %>')
+<% else %>
+	$('#entered-readings').html('<%=j render partial: 'glucose_reading/index', locals: { readings: @readings_of_the_day } %>')
+<% end %>
